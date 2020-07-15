@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 StringBuffer stringBuffer = new StringBuffer();
                 String line = "";
 
+                StringBuffer lastBuffer = new StringBuffer();
                 while ((line =bufferedReader.readLine()) !=null){
 
                     stringBuffer.append(line);
@@ -62,18 +63,25 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject fileobj =  new JSONObject(file);
                 JSONArray jsonArray =  fileobj.getJSONArray("studentinfo");
-                JSONObject arrayobject = jsonArray.getJSONObject(0);
+
+                for(int i= 0;i<jsonArray.length();i++){
+
+                    JSONObject arrayobject = jsonArray.getJSONObject(i );
+                    name = arrayobject.getString("name");
+                    age = arrayobject.getInt("age");
+                    description= arrayobject.getString("description");
+
+                     lastBuffer.append(name+"\n"+age+"\n"+description+"\n\n");
+                }
 
 
-                name = arrayobject.getString("name");
-                age = arrayobject.getInt("age");
-                description= arrayobject.getString("description");
 
 
+                return lastBuffer.toString();
 
-                return name+"\n\n"+
-                        age+"\n\n"
-                        +description;
+                        //name+"\n\n"+
+                       // age+"\n\n"
+                       // +description;
 
 
 
